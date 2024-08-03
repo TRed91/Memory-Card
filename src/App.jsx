@@ -24,6 +24,7 @@ function App() {
   const [score, setScore] = useState(0);
   const [record, setRecord] = useState(0);
   const [pictureUrls, setPictureUrls] = useState(null);
+  const [selectedCards, setSelectedCards] = useState([]); 
 
   useEffect(() => {
     fetch('https://www.moogleapi.com/api/v1/characters')
@@ -54,10 +55,23 @@ function App() {
     }
   }
 
+  const handleClick = (id) => {
+    if(selectedCards.includes(id)) {
+        handleGameOver();
+        setSelectedCards([]);
+    } else {
+        handleScore();
+        const updateCardsList = [...selectedCards, id];
+        setSelectedCards(updateCardsList);
+    }
+  }
+
   return (
     <>
       <Header score={score} record={record} />
-      {pictureUrls && <CardBody scored={handleScore} gameOver={handleGameOver} pictures={pictureUrls} />}
+      {pictureUrls && <CardBody key       = {selectedCards.length} 
+                                pictures  = {pictureUrls} 
+                                click     = {(id) => handleClick(id)}/>}
     </>
   )
 }
