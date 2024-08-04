@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import CardBody from './Cards.jsx'
+import CardBody from './cards.jsx'
 
 import './App.css'
 
